@@ -117,6 +117,9 @@ foodDS.take(4).foreach(x=> println(x.getString(0)))
 
 // ML
 
+import org.apache.spark.ml.feature.RegexTokenizer
+
+
 // just get one column DF
 val names = data.select('Name)
 
@@ -233,3 +236,13 @@ scala> allwordsWithColName.show
 |         s|
 |   orchard|
 +----------+
+
+// unsamples
+val allW = wordsInName.select(org.apache.spark.sql.functions.explode('words).as("justWord"))
+
+//  freq of word
+val wordsDescByCount=allW.groupBy('justWord).count.orderBy('count.desc)
+
+// sort by word
+val wordsSortDesc=allW.orderBy('justWord.desc)
+val wordsSortAsc=allW.orderBy('justWord.asc)
