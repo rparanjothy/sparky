@@ -246,3 +246,20 @@ val wordsDescByCount=allW.groupBy('justWord).count.orderBy('count.desc)
 // sort by word
 val wordsSortDesc=allW.orderBy('justWord.desc)
 val wordsSortAsc=allW.orderBy('justWord.asc)
+
+
+// Streaming:
+/*
+1. you need these imports
+org.apache.spark._
+org.apache.spark.storage._
+org.apache.spark.streaming._
+
+*/
+
+// define the duration for your micro-batch
+
+val interval=Seconds(3) //3sec, 3000 millis
+
+// need a streamingContext.. create it from sparkContext and the interval
+val strm=new StreamingContext(sc,interval)
